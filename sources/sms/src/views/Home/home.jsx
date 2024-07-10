@@ -1,14 +1,15 @@
 import { Button, Divider, Modal, Table, Tooltip, Switch, Dropdown } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card } from "antd";
 import ModalComponent from "./crud/modal";
 import { FaEdit } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 import { AiFillSetting } from "react-icons/ai";
-import data from "../../data/data";
+import { getAll } from "../../api/Crud";
 
 const Home = () => {
   const [visible, setvisible] = useState(false);
+  const [data, setdata] = useState([]);
   const [isDelete, setisdelete] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(null);
   const [tableParams, setTableParams] = useState({
@@ -17,6 +18,12 @@ const Home = () => {
       pageSize: 7,
     },
   });
+  //getall data api
+  useEffect(() => {
+    getAll().then((res) => {
+      setdata(res.data.providers);
+    });
+  }, []);
   const HandleEdit = (record) => {
     setSelectedRecord(record);
     setvisible(!visible);
@@ -48,14 +55,14 @@ const Home = () => {
     },
     {
       title: "Level",
-      dataIndex: "isPrimary",
-      key: "isPrimary",
-      render: (isPrimary) => (
+      dataIndex: "level",
+      key: "level",
+      render: (level) => (
         <Button
-          className={isPrimary ? "bg-green-500" : "bg-red-600"}
+          className={level ? "bg-green-500" : "bg-red-600"}
           type="primary"
         >
-          {isPrimary ? "Primary" : "Secondary"}
+          {level}
         </Button>
       ),
     },
@@ -67,14 +74,14 @@ const Home = () => {
     },
     {
       title: "Message ID",
-      dataIndex: "noOfSuccessfulMessage",
-      key: "noOfSuccessfulMessage",
-      render: (noOfSuccessfulMessage) => (
+      dataIndex: "noOfSuccessfulMessages",
+      key: "noOfSuccessfulMessages",
+      render: (noOfSuccessfulMessages) => (
         <Button
           type="primary"
-          className={noOfSuccessfulMessage ? "bg-green-500" : "bg-red-600"}
+          className={noOfSuccessfulMessages ? "bg-green-500" : "bg-red-600"}
         >
-          {noOfSuccessfulMessage ? "True" : "False"}
+          {noOfSuccessfulMessages ? "True" : "False"}
         </Button>
       ),
     },
