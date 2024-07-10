@@ -11,7 +11,7 @@ import LayoutComponent from "../Layouts/LayoutComponent";
 const rootRoutes = [
   { path: "/", element: <LayoutComponent />, children: [
     { path: "/", element: <Home /> },
-    { path: "/test", element: <Test /> },
+    { path: "test", element: <Test /> },
   ]},
 ];
 

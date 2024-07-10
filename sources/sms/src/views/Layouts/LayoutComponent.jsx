@@ -7,19 +7,28 @@ import {
   VideoCameraOutlined,
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 const { Header, Sider, Content } = Layout;
 
 const LayoutComponent = () => {
+    const navigate = useNavigate();
 
     const [collapsed, setCollapsed] = useState(false);
+    const [defautKey, setDefautKey] = useState();
     const { token: { colorBgContainer, borderRadiusLG }} = theme.useToken();
 
     const items = [
-        { key: '1', icon: <UserOutlined />, label: 'nav 1' },
-        { key: '2', icon: <VideoCameraOutlined />, label: 'nav 2' },
-        { key: '3', icon: <UploadOutlined />, label: 'nav 3' },
+        { path: "/", label: 'Home', icon: <UserOutlined />, key: '1'},
+        { path: "test", label: 'Test', icon: <VideoCameraOutlined />, key: '2'},
     ]
+
+    const handleNavigate = (e) => {
+        let findItem = items.find(x => x.key === e.key);
+        if(e){
+            navigate(findItem.path);
+        }
+    }
+
   return (
     <>
         <Layout>
@@ -34,7 +43,9 @@ const LayoutComponent = () => {
                 >
                     a
                 </div>
-                <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} items={items} style={{ marginTop: 19 }} />
+                <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} items={items} style={{ marginTop: 19 }} 
+                    onClick={handleNavigate} 
+                />
             </Sider>
             <Layout>
                 <Header style={{ padding: 0, background: colorBgContainer }} >
