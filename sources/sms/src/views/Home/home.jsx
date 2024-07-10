@@ -47,7 +47,10 @@ const Home = () => {
   };
 
   const onDelete = (record) => {
-    data = data.filter((item) => item.id !== 1);
+    Provider.deleteProvider(record._id).then(() => {
+      getProviders();
+      setisdelete(!isDelete);
+    });
   };
 
   const columns = [

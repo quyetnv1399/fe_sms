@@ -14,7 +14,12 @@ const create = async (provider) => {
 
 const update = async () => {};
 
-const deleteProvider = async () => {};
+const deleteProvider = async (provider) => {
+  let res = await Api.delete(`/delete-provider/${provider}`, {
+    timeout: 9000000,
+  });
+  return res;
+};
 
 const Provider = {
   getAll,
