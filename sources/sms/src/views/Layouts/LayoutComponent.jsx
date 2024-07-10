@@ -23,18 +23,18 @@ const LayoutComponent = () => {
   return (
     <>
         <Layout>
-            <Sider trigger={null} collapsible collapsed={collapsed}>
+            <Sider trigger={null} collapsible collapsed={collapsed} style={{height: "100vh"}}>
                 <div className="demo-logo-vertical" 
                     style={{
                         fontSize: '16px',
                         width: "100%",
                         height: "64px",
-                        backgroundColor: "#fff"
+                        backgroundColor: "#022240"
                     }}
                 >
                     a
                 </div>
-                <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} items={items} />
+                <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} items={items} style={{ marginTop: 19 }} />
             </Sider>
             <Layout>
                 <Header style={{ padding: 0, background: colorBgContainer }} >
