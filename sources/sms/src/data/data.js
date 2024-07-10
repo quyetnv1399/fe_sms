@@ -1,0 +1,68 @@
+let data = [
+  {
+    id: 1,
+    name: "GapOne",
+    isPrimary: true,
+    isInUse: true,
+    noOfSuccessfulMessage: true,
+    period: true,
+  },
+  {
+    id: 2,
+    name: "GapOne",
+    isPrimary: false,
+    isInUse: true,
+    noOfSuccessfulMessage: true,
+    period: true,
+  },
+  {
+    id: 3,
+    name: "FPT",
+    isPrimary: true,
+    isInUse: true,
+    noOfSuccessfulMessage: true,
+    period: true,
+  },
+  {
+    id: 4,
+    name: "GapOne",
+    isPrimary: true,
+    isInUse: false,
+    noOfSuccessfulMessage: true,
+    period: true,
+  },
+  {
+    id: 5,
+    name: "FPT",
+    isPrimary: true,
+    isInUse: false,
+    noOfSuccessfulMessage: true,
+    period: true,
+  },
+  {
+    id: 7,
+    name: "FPT",
+    isPrimary: true,
+    isInUse: false,
+    noOfSuccessfulMessage: true,
+    period: true,
+  },
+  {
+    id: 8,
+    name: "GapOne",
+    isPrimary: true,
+    isInUse: false,
+    noOfSuccessfulMessage: true,
+    period: true,
+  },
+  {
+    id: 6,
+    name: "FPT",
+    isPrimary: true,
+    isInUse: false,
+    noOfSuccessfulMessage: true,
+    period: true,
+  },
+];
+
+export default data;
