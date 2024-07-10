@@ -5,7 +5,9 @@ import ModalComponent from "./crud/modal";
 import { FaEdit } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
 import { AiFillSetting } from "react-icons/ai";
-import { getAll } from "../../api/Crud";
+import Provider from "../../api/Provider";
+import HomeView from "./HomeView";
+
 
 const Home = () => {
   const [visible, setvisible] = useState(false);
@@ -18,12 +20,14 @@ const Home = () => {
       pageSize: 7,
     },
   });
+
   //getall data api
-  useEffect(() => {
-    getAll().then((res) => {
+  const getProviders = () => {
+    Provider.getAll().then((res) => {
       setdata(res.data.providers);
     });
-  }, []);
+  }
+
   const HandleEdit = (record) => {
     setSelectedRecord(record);
     setvisible(!visible);
@@ -141,46 +145,11 @@ const Home = () => {
     },
   ];
 
-  return (
-    <div className="container shadow-xl">
-      <Card>
-        <div>
-          <Button type="primary" onClick={() => setvisible(true)}>
-            New
-          </Button>
-        </div>
-        <Divider />
-        <Table
-          dataSource={data}
-          columns={columns}
-          pagination={tableParams.pagination}
-          onChange={handleTableChange}
-        />
-      </Card>
-      {visible ? (
-        <ModalComponent
-          visible={visible}
-          onClose={() => setvisible(!visible)}
-          title={"Add new"}
-          data={selectedRecord}
-        />
-      ) : (
-        <></>
-      )}
-      {isDelete ? (
-        <Modal
-          visible={isDelete}
-          title={"Bạn có muốn xóa row này không ?"}
-          onCancel={() => setisdelete(!isDelete)}
-          onOk={() => {
-            onDelete(selectedRecord);
-          }}
-        ></Modal>
-      ) : (
-        <></>
-      )}
-    </div>
-  );
+  useEffect(() => {
+    getProviders();
+  }, []);
+
+  return HomeView({visible, setvisible, data, isDelete, setisdelete, selectedRecord, tableParams, handleTableChange, onDelete, columns});
 };
 
 export default Home;

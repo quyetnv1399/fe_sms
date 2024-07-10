@@ -4,7 +4,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import Home from "../Home/home";
+import Home from "../Home/Home";
 import Test from "../Test/Test";
 import LayoutComponent from "../Layouts/LayoutComponent";
 

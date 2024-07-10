@@ -1,4 +1,5 @@
-import Api from "..";
+import Api from "../Api";
+
 
 const getAll = async () => {
   let res = await Api.get("/view-all-providers");
