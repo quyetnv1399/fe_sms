@@ -8,7 +8,6 @@ import { AiFillSetting } from "react-icons/ai";
 import Provider from "../../api/Provider";
 import HomeView from "./HomeView";
 
-
 const Home = () => {
   const [visible, setvisible] = useState(false);
   const [data, setdata] = useState([]);
@@ -17,7 +16,7 @@ const Home = () => {
   const [tableParams, setTableParams] = useState({
     pagination: {
       current: 1,
-      pageSize: 7,
+      pageSize: 5,
     },
   });
 
@@ -26,7 +25,7 @@ const Home = () => {
     Provider.getAll().then((res) => {
       setdata(res.data.providers);
     });
-  }
+  };
 
   const HandleEdit = (record) => {
     setSelectedRecord(record);
@@ -149,7 +148,19 @@ const Home = () => {
     getProviders();
   }, []);
 
-  return HomeView({visible, setvisible, data, isDelete, setisdelete, selectedRecord, tableParams, handleTableChange, onDelete, columns});
+  return HomeView({
+    visible,
+    setvisible,
+    data,
+    isDelete,
+    setisdelete,
+    selectedRecord,
+    tableParams,
+    handleTableChange,
+    onDelete,
+    columns,
+    getProviders,
+  });
 };
 
 export default Home;

@@ -1,33 +1,27 @@
-import Api from "./Api"
+import Api from "./Api";
 
 const getAll = async () => {
-    let res = await Api.get("/view-all-providers")
-    return res
-}
+  let res = await Api.get("/view-all-providers");
+  return res;
+};
 
-const get = async () => {
-
-}
+const get = async () => {};
 
 const create = async (provider) => {
-    let res = await Api.post("create-provider", provider, { timeout: 9000000 });
-    return res;
-}
+  let res = await Api.post("create-provider", provider, { timeout: 9000000 });
+  return res;
+};
 
-const update = async () => {
+const update = async () => {};
 
-}
-
-const deleteProvider = async () => {
-
-}
+const deleteProvider = async () => {};
 
 const Provider = {
-    getAll,
-    get,
-    create,
-    update,
-    deleteProvider
-}
+  getAll,
+  get,
+  create,
+  update,
+  deleteProvider,
+};
 
-export default Provider
+export default Provider;
