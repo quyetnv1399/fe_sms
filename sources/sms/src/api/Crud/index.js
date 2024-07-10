@@ -1,11 +1,13 @@
-import Api from ".."; 
-
+import Api from "..";
 
 const getAll = async () => {
-    let res = await Api.get("/view-all-providers")
-    return res
-}
+  let res = await Api.get("/view-all-providers");
+  return res;
+};
 
-export {
-    getAll
-}
+const createProvider = async (provider) => {
+  let res = await Api.post("create-provider", provider, { timeout: 9000000 });
+  return res;
+};
+
+export { getAll, createProvider };
