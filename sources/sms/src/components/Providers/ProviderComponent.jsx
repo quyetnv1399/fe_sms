@@ -66,7 +66,14 @@ const ProviderComponent = () => {
     // }
     const { current, pageSize } = pagination;
     Provider.panigation(current, pageSize).then((res) => {
-      setdata(res.data.providers);
+      setTableParams({
+        pagination: {
+          current: res.data.currentPage,
+          pageSize: res.data.pageSize,
+        },
+      });
+      // setdata(res.data.providers);
+      // console.log(res.data);
     });
   };
 
