@@ -87,6 +87,7 @@ const ProviderView = (props) => {
                         <Button type="text"><AiFillSetting className="text-2xl bg-bl" /></Button>
                     </Dropdown>
                 )}/>
+                
             </Table>
 
             {props.visible ? (

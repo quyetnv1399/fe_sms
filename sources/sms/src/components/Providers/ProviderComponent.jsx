@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ProviderView from './ProviderView'
+import ProviderView from "./ProviderView";
 import Provider from "../../api/Provider";
 
 const ProviderComponent = () => {
@@ -16,7 +16,7 @@ const ProviderComponent = () => {
 
   const [dataDetail, setDataDetail] = useState({
     title: null,
-    data: null
+    data: null,
   });
 
   //getall data api
@@ -28,44 +28,46 @@ const ProviderComponent = () => {
 
       providers.forEach((x, index) => {
         let item = {
-          key: (index+1),
-          ...x
-        }
+          key: index + 1,
+          ...x,
+        };
         newData.push(item);
       });
-      
-      setdata(newData);
 
+      setdata(newData);
     });
   };
 
   const viewActionProvider = (record) => {
     let data = {};
-    let title = "New Provider"
+    let title = "New Provider";
 
-    console.log(record)
-    if(record){
-      console.log(1)
+    console.log(record);
+    if (record) {
+      console.log(1);
       data = record;
-      title = "Edit Provider"
+      title = "Edit Provider";
     }
 
     setDataDetail({
       title: title,
-      data: data
-    })
+      data: data,
+    });
 
-    setvisible(true)
-
-  }
+    setvisible(true);
+  };
 
   const handleTableChange = (pagination) => {
-    setTableParams({
-      pagination,
+    // setTableParams({
+    //   pagination,
+    // });
+    // if (pagination.pageSize !== tableParams.pagination?.pageSize) {
+    //   // setData([]);
+    // }
+    const { current, pageSize } = pagination;
+    Provider.panigation(current, pageSize).then((res) => {
+      setdata(res.data.providers);
     });
-    if (pagination.pageSize !== tableParams.pagination?.pageSize) {
-      // setData([]);
-    }
   };
 
   const handleDelete = (record) => {
@@ -84,7 +86,21 @@ const ProviderComponent = () => {
     getProviders();
   }, []);
 
-  return ProviderView({ visible, setvisible, data, dataDetail, isDelete, setisdelete, selectedRecord, tableParams, handleTableChange, onDelete, getProviders, viewActionProvider, handleDelete })
-}
+  return ProviderView({
+    visible,
+    setvisible,
+    data,
+    dataDetail,
+    isDelete,
+    setisdelete,
+    selectedRecord,
+    tableParams,
+    handleTableChange,
+    onDelete,
+    getProviders,
+    viewActionProvider,
+    handleDelete,
+  });
+};
 
-export default ProviderComponent
+export default ProviderComponent;
