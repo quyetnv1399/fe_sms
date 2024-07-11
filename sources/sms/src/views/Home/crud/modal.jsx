@@ -6,14 +6,24 @@ const ModalComponent = ({ visible, onClose, title, data, getall }) => {
   const [form] = Form.useForm();
 
   const handleOk = () => {
-    const { name, level } = form.getFieldsValue();
-    if (!name || !level) {
-      return;
-    }
-    Provider.create(form.getFieldsValue()).then(() => {
+    form.submit();
+    // const { name, level } = form.getFieldsValue();
+    // if (!name || !level) {
+    //   return;
+    // }
+
+  };
+
+  const onFinish = (values) => {
+    console.log('Success:', values);
+    Provider.create(values).then(() => {
       onClose();
       getall();
     });
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
   };
 
   const nameData = [
@@ -26,6 +36,7 @@ const ModalComponent = ({ visible, onClose, title, data, getall }) => {
       value: "GapOne",
     },
   ];
+
   const levelData = [
     {
       title: "Primary",
@@ -44,28 +55,25 @@ const ModalComponent = ({ visible, onClose, title, data, getall }) => {
   };
 
   return (
-    <Modal visible={visible} title={title} onCancel={onClose} onOk={handleOk}>
+    <Modal open={visible} title={title} onCancel={onClose} onOk={handleOk}>
       <Card>
-        <Form form={form} initialValues={initialValues}>
+        <Form form={form} initialValues={initialValues} onFinish={onFinish} onFinishFailed={onFinishFailed} autoComplete="off">
           <div>
-            <Form.Item
-              name="name"
-              label="Name"
-              rules={[{ required: true, message: "Please select a name" }]}
-            >
+            <Form.Item name="name" label="Name" rules={[{ required: true, message: "Please select a name" }]} >
               <Select>
-                {nameData.map((item) => (
-                  <Select.Option key={item.value} value={item.value}>
+                {nameData.map((item, index) => (
+                  <Select.Option key={index} value={item.value}>
                     {item.title}
                   </Select.Option>
                 ))}
               </Select>
             </Form.Item>
-            <Form.Item name="level" label="Level" rules={[{ required: true }]}>
+
+            <Form.Item name="level" label="Level" rules={[{ required: true, message: "Please select a Level" }]}>
               <Select>
-                {levelData.map((item) => {
+                {levelData.map((item, index) => {
                   return (
-                    <Select.Option value={item.value}>
+                    <Select.Option key={index} value={item.value}>
                       {item.title}
                     </Select.Option>
                   );
@@ -73,21 +81,19 @@ const ModalComponent = ({ visible, onClose, title, data, getall }) => {
               </Select>
             </Form.Item>
           </div>
+
           <div className="flex justify-between pt-3">
-            <Form.Item
-              label="Message ID"
-              name="noOfSuccessfulMessages"
-              valuePropName="checked"
-            >
+            <Form.Item label="Message ID" name="noOfSuccessfulMessages" valuePropName="checked" >
               <Checkbox></Checkbox>
             </Form.Item>
+
             <Form.Item label="Period" name="period" valuePropName="checked">
-              <Checkbox defaultChecked={false}></Checkbox>
+              <Checkbox></Checkbox>
             </Form.Item>
           </div>
           <div className="flex justify-between pt-3">
             <Form.Item label="In Use" name="isInUse" valuePropName="checked">
-              <Switch defaultValue={false}></Switch>
+              <Switch></Switch>
             </Form.Item>
           </div>
         </Form>
