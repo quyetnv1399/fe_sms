@@ -27,7 +27,7 @@ const ProviderView = (props) => {
                 <Column title="Name" dataIndex="name" />
 
                 <Column title="Level" dataIndex="level" render={(level) => (
-                    <Tag color={level ? "#108ee9" : "gray"}>{level ? "True" : "False"}</Tag>
+                    <Tag color={level === "Primary" ? "#108ee9" : "#00c431"}>{level}</Tag>
                 )}/>
 
                 <Column title="In Use" dataIndex="isInUse" render={(isInUse) => (

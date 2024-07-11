@@ -40,7 +40,7 @@ const ProviderComponent = () => {
   };
 
   const viewActionProvider = (record) => {
-    let data = null;
+    let data = {};
     let title = "New Provider"
 
     console.log(record)

@@ -9,8 +9,6 @@ const ModalComponent = ({ visible, onClose, param, getall }) => {
 
   const handleOk = () => {
     form.submit();
-    console.log(param)
-
   };
 
   const onFinish = (values) => {
