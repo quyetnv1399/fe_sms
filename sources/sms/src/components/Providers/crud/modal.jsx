@@ -8,28 +8,19 @@ const ModalComponent = ({ visible, onClose, param, getall, showMess }) => {
   const handleOk = () => {
     form.submit();
   };
-
+  // console.log(showMess())
   const onFinish = (values) => {
     // console.log("Success:", values);
     console.log(param.data._id);
     if (param.data._id) {
       Provider.update(values, param.data._id).then(() => {
+        showMess("success", "You successfully edited");
         onClose();
         getall();
       });
     } else {
       Provider.create(values).then(() => {
-        showMess.open({
-          type: "success",
-          content: "This is a prompt message with custom className and style",
-          className: "custom-class",
-          style: {
-            position: "fixed",
-            top: "50%",
-            right: "20px",
-            transform: "translateY(-50%)",
-          },
-        });
+        showMess("success", "You successfully added");
         onClose();
         getall();
       });

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ProviderView from "./ProviderView";
 import Provider from "../../api/Provider";
-import { message } from 'antd'
+import { message } from "antd";
 
 const ProviderComponent = () => {
   const [visible, setvisible] = useState(false);
@@ -40,7 +40,6 @@ const ProviderComponent = () => {
     });
   };
 
-  
   const viewActionProvider = (record) => {
     let data = {};
     let title = "New Provider";
@@ -77,7 +76,7 @@ const ProviderComponent = () => {
         },
       });
       // setdata(res.data.providers);
-      // console.log(res.data);
+      console.log(res.data);
     });
   };
 
@@ -99,13 +98,16 @@ const ProviderComponent = () => {
     getProviders();
   }, []);
 
-  const success = () => {
+  const showMess = (type, title) => {
     messageApi.open({
-      type: "success",
-      content: "This is a prompt message with custom className and style",
+      type: type,
+      content: title,
       className: "custom-class",
       style: {
-        marginTop: "20vh",
+        position: "fixed",
+        top: "50%",
+        right: "20px",
+        transform: "translateY(-50%)",
       },
     });
   };
@@ -125,7 +127,7 @@ const ProviderComponent = () => {
     viewActionProvider,
     handleDelete,
     contextHolder,
-    messageApi,
+    showMess,
   });
 };
 

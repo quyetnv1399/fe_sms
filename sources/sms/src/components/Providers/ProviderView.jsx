@@ -157,7 +157,9 @@ const ProviderView = (props) => {
           param={props.dataDetail}
           getall={() => props.getProviders()}
           onClose={() => props.setvisible(false)}
-          showMess={props.messageApi}
+          showMess={(type, mess) => {
+            props.showMess(type, mess);
+          }}
         />
       ) : (
         <></>
@@ -169,6 +171,7 @@ const ProviderView = (props) => {
           title={"Bạn có muốn xóa row này không ?"}
           onCancel={() => props.setisdelete(!props.isDelete)}
           onOk={() => {
+            props.showMess("success", "You successfully deleted");
             props.onDelete(props.selectedRecord);
           }}
         ></Modal>
