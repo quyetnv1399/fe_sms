@@ -1,5 +1,6 @@
 import Api from "./Api";
 
+
 const getAll = async () => {
   let res = await Api.get("/view-all-providers");
   return res;
@@ -12,7 +13,12 @@ const create = async (provider) => {
   return res;
 };
 
-const update = async () => {};
+const update = async (provider, id) => {
+  let res = await Api.patch(`/update-provider/${id}`, provider, {
+    timeout: 9000000,
+  });
+  return res;
+};
 
 const deleteProvider = async (provider) => {
   let res = await Api.delete(`/delete-provider/${provider}`, {

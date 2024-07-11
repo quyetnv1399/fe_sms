@@ -4,6 +4,7 @@ import Provider from "../../../api/Provider";
 
 const ModalComponent = ({ visible, onClose, title, data, getall }) => {
   const [form] = Form.useForm();
+  // console.log(data);
 
   const handleOk = () => {
     form.submit();
@@ -11,19 +12,26 @@ const ModalComponent = ({ visible, onClose, title, data, getall }) => {
     // if (!name || !level) {
     //   return;
     // }
-
   };
 
   const onFinish = (values) => {
-    console.log('Success:', values);
-    Provider.create(values).then(() => {
-      onClose();
-      getall();
-    });
+    // console.log("Success:", values);
+    console.log(data._id);
+    if (data._id) {
+      Provider.update(values, data._id).then(() => {
+        onClose();
+        getall();
+      });
+    } else {
+      Provider.create(values).then(() => {
+        onClose();
+        getall();
+      });
+    }
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    console.log("Failed:", errorInfo);
   };
 
   const nameData = [
@@ -49,17 +57,29 @@ const ModalComponent = ({ visible, onClose, title, data, getall }) => {
   ];
 
   const initialValues = {
-    period: false,
-    noOfSuccessfulMessages: false,
-    isInUse: false,
+    period: data.period || false,
+    noOfSuccessfulMessages: data.noOfSuccessfulMessages || false,
+    isInUse: data.isInUse || false,
+    name: data.name || null,
+    level: data.level || null,
   };
 
   return (
     <Modal open={visible} title={title} onCancel={onClose} onOk={handleOk}>
       <Card>
-        <Form form={form} initialValues={initialValues} onFinish={onFinish} onFinishFailed={onFinishFailed} autoComplete="off">
+        <Form
+          form={form}
+          initialValues={initialValues}
+          onFinish={onFinish}
+          onFinishFailed={onFinishFailed}
+          autoComplete="off"
+        >
           <div>
-            <Form.Item name="name" label="Name" rules={[{ required: true, message: "Please select a name" }]} >
+            <Form.Item
+              name="name"
+              label="Name"
+              rules={[{ required: true, message: "Please select a name" }]}
+            >
               <Select>
                 {nameData.map((item, index) => (
                   <Select.Option key={index} value={item.value}>
@@ -69,7 +89,11 @@ const ModalComponent = ({ visible, onClose, title, data, getall }) => {
               </Select>
             </Form.Item>
 
-            <Form.Item name="level" label="Level" rules={[{ required: true, message: "Please select a Level" }]}>
+            <Form.Item
+              name="level"
+              label="Level"
+              rules={[{ required: true, message: "Please select a Level" }]}
+            >
               <Select>
                 {levelData.map((item, index) => {
                   return (
@@ -83,7 +107,11 @@ const ModalComponent = ({ visible, onClose, title, data, getall }) => {
           </div>
 
           <div className="flex justify-between pt-3">
-            <Form.Item label="Message ID" name="noOfSuccessfulMessages" valuePropName="checked" >
+            <Form.Item
+              label="Message ID"
+              name="noOfSuccessfulMessages"
+              valuePropName="checked"
+            >
               <Checkbox></Checkbox>
             </Form.Item>
 

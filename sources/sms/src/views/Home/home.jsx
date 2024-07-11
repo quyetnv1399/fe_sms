@@ -13,7 +13,7 @@ const Home = () => {
   const [visible, setvisible] = useState(false);
   const [data, setdata] = useState([]);
   const [isDelete, setisdelete] = useState(false);
-  const [selectedRecord, setSelectedRecord] = useState(null);
+  const [selectedRecord, setSelectedRecord] = useState([]);
   const [tableParams, setTableParams] = useState({
     pagination: {
       current: 1,
@@ -26,6 +26,11 @@ const Home = () => {
     Provider.getAll().then((res) => {
       setdata(res.data.providers);
     });
+  };
+
+  const HandleAdd = () => {
+    setSelectedRecord([]);
+    setvisible(!visible);
   };
 
   const HandleEdit = (record) => {
@@ -166,6 +171,7 @@ const Home = () => {
   }, []);
 
   return HomeView({
+    HandleAdd,
     visible,
     setvisible,
     data,

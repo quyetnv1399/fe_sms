@@ -7,7 +7,7 @@ const HomeView = (props) => {
     <div className="container shadow-xl">
       <Card>
         <div>
-          <Button type="primary" onClick={() => props.setvisible(true)}>
+          <Button type="primary" onClick={() => props.HandleAdd()}>
             New
           </Button>
         </div>
