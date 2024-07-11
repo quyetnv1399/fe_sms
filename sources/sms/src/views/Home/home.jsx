@@ -4,6 +4,7 @@ import { Card } from "antd";
 import ModalComponent from "./crud/modal";
 import { FaEdit } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
+import { FaEye } from "react-icons/fa";
 import { AiFillSetting } from "react-icons/ai";
 import Provider from "../../api/Provider";
 import HomeView from "./HomeView";
@@ -110,14 +111,27 @@ const Home = () => {
       key: "action",
       render: (action, record) => (
         <Dropdown
+          className=""
           menu={{
             items: [
+              {
+                key: "view",
+                label: (
+                  <span onClick={() => HandleEdit(record)}>
+                    <Tooltip title="view">
+                      <Button className="flex justify-start items-center w-full">
+                        <FaEye className="text-xl" /> View
+                      </Button>
+                    </Tooltip>
+                  </span>
+                ),
+              },
               {
                 key: "edit",
                 label: (
                   <span onClick={() => HandleEdit(record)}>
                     <Tooltip title="edit">
-                      <Button className="flex items-center">
+                      <Button className="flex justify-start items-center w-full">
                         <FaEdit className="text-xl" /> Edit
                       </Button>
                     </Tooltip>
@@ -129,7 +143,7 @@ const Home = () => {
                 label: (
                   <span onClick={() => HandleDelete(record)}>
                     <Tooltip title="delete">
-                      <Button className="flex items-center">
+                      <Button className="flex justify-start items-center w-full">
                         <FaTrash className="text-xl" /> Delete
                       </Button>
                     </Tooltip>
@@ -138,7 +152,7 @@ const Home = () => {
               },
             ],
           }}
-          placement="bottomLeft"
+          placement="bottomRight"
           arrow
         >
           <AiFillSetting className="text-2xl bg-bl" />
