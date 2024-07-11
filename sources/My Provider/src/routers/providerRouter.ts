@@ -6,6 +6,7 @@ import {
   viewAllProviders,
   viewAllProvidersWithPaging,
   viewProviderById,
+  viewProvidersByName
 } from "../controllers/providerController";
 
 const providerRouter = Router();
@@ -27,5 +28,7 @@ providerRouter.get("/view-provider-by-id/:providerId", viewProviderById);
 
 /* view all providers with paging */
 providerRouter.get("/view-all-providers/:page/:pageSize", viewAllProvidersWithPaging);
+
+providerRouter.post("/view-providers-by-name",viewProvidersByName)
 
 export default providerRouter;

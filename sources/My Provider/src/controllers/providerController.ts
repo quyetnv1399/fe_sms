@@ -111,3 +111,16 @@ export const viewAllProvidersWithPaging: RequestHandler = async (req, res) => {
     res.status(500).send({ message: e });
   }
 };
+
+
+export const viewProvidersByName:RequestHandler = async(req,res) => {
+  try {
+    const {name} = req.body
+    const provider = await Provider.find({
+      name: { $regex: new RegExp(name, 'i') }
+    });
+    res.json({data:provider})
+  } catch (e) {
+    res.status(500).send({ message: e });
+  }
+}

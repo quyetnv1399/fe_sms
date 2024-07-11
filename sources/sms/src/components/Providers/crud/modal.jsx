@@ -2,9 +2,7 @@ import { Card, Modal, Form, Select, Checkbox, Switch } from "antd";
 import React, { memo, useState } from "react";
 import Provider from "../../../api/Provider";
 
-
-const ModalComponent = ({ visible, onClose, param, getall }) => {
-
+const ModalComponent = ({ visible, onClose, param, getall, showMess }) => {
   const [form] = Form.useForm();
 
   const handleOk = () => {
@@ -21,6 +19,17 @@ const ModalComponent = ({ visible, onClose, param, getall }) => {
       });
     } else {
       Provider.create(values).then(() => {
+        showMess.open({
+          type: "success",
+          content: "This is a prompt message with custom className and style",
+          className: "custom-class",
+          style: {
+            position: "fixed",
+            top: "50%",
+            right: "20px",
+            transform: "translateY(-50%)",
+          },
+        });
         onClose();
         getall();
       });
@@ -60,10 +69,14 @@ const ModalComponent = ({ visible, onClose, param, getall }) => {
     name: param.data.name || null,
     level: param.data.level || null,
   };
- 
 
   return (
-    <Modal open={visible} title={param.title} onCancel={onClose} onOk={handleOk}>
+    <Modal
+      open={visible}
+      title={param.title}
+      onCancel={onClose}
+      onOk={handleOk}
+    >
       <Card>
         <Form
           form={form}

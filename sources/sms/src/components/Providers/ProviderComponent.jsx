@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import ProviderView from "./ProviderView";
 import Provider from "../../api/Provider";
+import { message } from 'antd'
 
 const ProviderComponent = () => {
   const [visible, setvisible] = useState(false);
   const [data, setdata] = useState([]);
   const [isDelete, setisdelete] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(null);
+  const [messageApi, contextHolder] = message.useMessage();
   const [tableParams, setTableParams] = useState({
     pagination: {
       current: 1,
@@ -38,6 +40,7 @@ const ProviderComponent = () => {
     });
   };
 
+  
   const viewActionProvider = (record) => {
     let data = {};
     let title = "New Provider";
@@ -57,6 +60,7 @@ const ProviderComponent = () => {
     setvisible(true);
   };
 
+  //phân trang bằng api
   const handleTableChange = (pagination) => {
     // setTableParams({
     //   pagination,
@@ -77,6 +81,7 @@ const ProviderComponent = () => {
     });
   };
 
+  //xử lý xóa
   const handleDelete = (record) => {
     setSelectedRecord(record);
     setisdelete(!isDelete);
@@ -89,9 +94,21 @@ const ProviderComponent = () => {
     });
   };
 
+  //hiện data lên màn hình
   useEffect(() => {
     getProviders();
   }, []);
+
+  const success = () => {
+    messageApi.open({
+      type: "success",
+      content: "This is a prompt message with custom className and style",
+      className: "custom-class",
+      style: {
+        marginTop: "20vh",
+      },
+    });
+  };
 
   return ProviderView({
     visible,
@@ -107,6 +124,8 @@ const ProviderComponent = () => {
     getProviders,
     viewActionProvider,
     handleDelete,
+    contextHolder,
+    messageApi,
   });
 };
 
