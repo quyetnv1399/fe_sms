@@ -4,7 +4,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Test from "../Test/Test";
 import LayoutComponent from "../Layouts/LayoutComponent";
-import Home from "../Home/Home";
+import Home from "../Home/home";
+import ProviderComponent from "../../components/Providers/ProviderComponent";
 
 const rootRoutes = [
   {
@@ -12,6 +13,7 @@ const rootRoutes = [
     element: <LayoutComponent />,
     children: [
       { path: "/", element: <Home /> },
+      { path: "provider", element: <ProviderComponent />},
       { path: "test", element: <Test /> },
     ],
   },

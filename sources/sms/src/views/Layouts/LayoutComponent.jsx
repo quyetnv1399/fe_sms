@@ -7,19 +7,21 @@ import {
   VideoCameraOutlined,
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 const { Header, Sider, Content } = Layout;
 
 const LayoutComponent = () => {
     const navigate = useNavigate();
+    const location = useLocation();
 
     const [collapsed, setCollapsed] = useState(false);
     const [defautKey, setDefautKey] = useState();
     const { token: { colorBgContainer, borderRadiusLG }} = theme.useToken();
 
     const items = [
-        { path: "/", label: 'Home', icon: <UserOutlined />, key: '1'},
+        { path: "", label: 'Home', icon: <UserOutlined />, key: '1'},
         { path: "test", label: 'Test', icon: <VideoCameraOutlined />, key: '2'},
+        { path: "provider", label: 'Provider', icon: <VideoCameraOutlined />, key: '3'},
     ]
 
     const handleNavigate = (e) => {
@@ -28,6 +30,11 @@ const LayoutComponent = () => {
             navigate(findItem.path);
         }
     }
+
+    const getSelectedKey = () => {
+        const menuItem = items.find(item => location.pathname.replace("/","") === item.path);
+        return menuItem ? menuItem.key : '1'
+    };
 
   return (
     <>
@@ -43,7 +50,7 @@ const LayoutComponent = () => {
                 >
                     a
                 </div>
-                <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']} items={items} style={{ marginTop: 19 }} 
+                <Menu theme="dark" mode="inline" defaultSelectedKeys={[getSelectedKey()]} items={items} style={{ marginTop: 19 }} 
                     onClick={handleNavigate} 
                 />
             </Sider>
