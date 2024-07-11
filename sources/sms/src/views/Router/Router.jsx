@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import Test from "../Test/Test";
 import LayoutComponent from "../Layouts/LayoutComponent";
-import Home from "../Home/home";
+import Home from "../Home/Home";
 
 const rootRoutes = [
   {
