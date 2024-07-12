@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import ProviderView from "./ProviderView";
-import Provider from "../../api/Provider";
+import Provider from "../../common/api/ProviderApi";
 import { message } from "antd";
+import { Utils } from "../../_shared/utils";
 
 const ProviderComponent = () => {
   const [visible, setvisible] = useState(false);
@@ -9,11 +10,10 @@ const ProviderComponent = () => {
   const [isDelete, setisdelete] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(null);
   const [messageApi, contextHolder] = message.useMessage();
-  const [tableParams, setTableParams] = useState({
-    pagination: {
-      current: 1,
-      pageSize: 5,
-    },
+  const [pagination, setPagination] = useState({
+    current: 1,
+    pageSize: 5,
+    total: 0,
   });
 
   const [dataDetail, setDataDetail] = useState({
@@ -22,31 +22,32 @@ const ProviderComponent = () => {
   });
 
   //getall data api
-  const getProviders = () => {
-    Provider.getAll().then((res) => {
-      const { providers } = res.data;
+  const getProviders = async (pagination) => {
 
-      let newData = [];
+    try {
+      const res = await Provider.panigation(pagination.current, pagination.pageSize);
+      const { totalProviders, providers } = res.data; 
 
-      providers.forEach((x, index) => {
-        let item = {
-          key: index + 1,
-          ...x,
-        };
-        newData.push(item);
+      let newData = Utils.getKeyData(providers);
+      
+      setdata(newData);
+
+      setPagination({
+        ...pagination,
+        total: totalProviders, 
       });
 
-      setdata(newData);
-    });
+    } catch (error) {
+      console.log(error)
+    } 
+
   };
 
   const viewActionProvider = (record) => {
     let data = {};
     let title = "New Provider";
 
-    console.log(record);
     if (record) {
-      console.log(1);
       data = record;
       title = "Edit Provider";
     }
@@ -61,23 +62,7 @@ const ProviderComponent = () => {
 
   //phân trang bằng api
   const handleTableChange = (pagination) => {
-    // setTableParams({
-    //   pagination,
-    // });
-    // if (pagination.pageSize !== tableParams.pagination?.pageSize) {
-    //   // setData([]);
-    // }
-    const { current, pageSize } = pagination;
-    Provider.panigation(current, pageSize).then((res) => {
-      setTableParams({
-        pagination: {
-          current: res.data.currentPage,
-          pageSize: res.data.pageSize,
-        },
-      });
-      // setdata(res.data.providers);
-      console.log(res.data);
-    });
+    getProviders(pagination);
   };
 
   //xử lý xóa
@@ -88,14 +73,14 @@ const ProviderComponent = () => {
 
   const onDelete = (record) => {
     Provider.deleteProvider(record._id).then(() => {
-      getProviders();
+      getProviders(pagination);
       setisdelete(!isDelete);
     });
   };
 
   //hiện data lên màn hình
   useEffect(() => {
-    getProviders();
+    getProviders(pagination);
   }, []);
 
   const showMess = (type, title) => {
@@ -103,12 +88,6 @@ const ProviderComponent = () => {
       type: type,
       content: title,
       className: "custom-class",
-      style: {
-        position: "fixed",
-        top: "50%",
-        right: "20px",
-        transform: "translateY(-50%)",
-      },
     });
   };
 
@@ -120,7 +99,7 @@ const ProviderComponent = () => {
     isDelete,
     setisdelete,
     selectedRecord,
-    tableParams,
+    pagination,
     handleTableChange,
     onDelete,
     getProviders,

@@ -1,6 +1,5 @@
 import {
   Button,
-  Divider,
   Dropdown,
   Modal,
   Select,
@@ -9,12 +8,11 @@ import {
   Tag,
   Tooltip,
 } from "antd";
-import { Card } from "antd";
-import ModalComponent from "./crud/modal";
 import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
 import { AiFillSetting } from "react-icons/ai";
 import Column from "antd/es/table/Column";
 import Search from "antd/es/transfer/search";
+import CreateUpdateComponent from "./create-update/CreateUpdateComponent";
 
 const ProviderView = (props) => {
   return (
@@ -47,7 +45,7 @@ const ProviderView = (props) => {
 
       <Table
         dataSource={props.data}
-        pagination={props.tableParams.pagination}
+        pagination={props.pagination}
         onChange={props.handleTableChange}
       >
         <Column
@@ -75,23 +73,13 @@ const ProviderView = (props) => {
         />
 
         <Column
-          title="Message ID"
+          title="Successful Msgs"
           dataIndex="noOfSuccessfulMessages"
-          render={(noOfSuccessfulMessages) => (
-            <Tag color={noOfSuccessfulMessages ? "#108ee9" : "gray"}>
-              {noOfSuccessfulMessages ? "True" : "False"}
-            </Tag>
-          )}
         />
 
         <Column
           title="Period"
           dataIndex="period"
-          render={(period) => (
-            <Tag color={period ? "#108ee9" : "gray"}>
-              {period ? "True" : "False"}
-            </Tag>
-          )}
         />
 
         <Column
@@ -152,10 +140,10 @@ const ProviderView = (props) => {
       </Table>
 
       {props.visible ? (
-        <ModalComponent
+        <CreateUpdateComponent
           visible={props.visible}
           param={props.dataDetail}
-          getall={() => props.getProviders()}
+          getall={() => props.getProviders(props.pagination)}
           onClose={() => props.setvisible(false)}
           showMess={(type, mess) => {
             props.showMess(type, mess);

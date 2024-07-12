@@ -1,18 +1,22 @@
 import "./App.css";
 import { App } from "antd";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import ProviderComponent from "./components/Providers/ProviderComponent";
-import Home from "./views/Home/home";
+import ProviderComponent from "./components/providers/ProviderComponent";
 import LayoutComponent from "./views/Layouts/LayoutComponent";
+import NotFound from "./components/not-found";
 
 const rootRoutes = [
   {
     path: "/",
     element: <LayoutComponent />,
     children: [
-      { path: "/", element: <Home /> },
-      { path: "provider", element: <ProviderComponent />},
+      { path: "/", element: <>Dashboard</> },
+      { path: "provider", element: <ProviderComponent /> },
     ],
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ];
 

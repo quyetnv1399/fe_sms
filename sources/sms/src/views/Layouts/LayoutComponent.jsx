@@ -8,6 +8,7 @@ import {
 } from '@ant-design/icons';
 import { Button, Layout, Menu, theme } from 'antd';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+
 const { Header, Sider, Content } = Layout;
 
 const LayoutComponent = () => {
@@ -15,13 +16,12 @@ const LayoutComponent = () => {
     const location = useLocation();
 
     const [collapsed, setCollapsed] = useState(false);
-    const [defautKey, setDefautKey] = useState();
     const { token: { colorBgContainer, borderRadiusLG }} = theme.useToken();
 
     const items = [
-        { path: "", label: 'Home', icon: <UserOutlined />, key: '1'},
-        { path: "test", label: 'Test', icon: <VideoCameraOutlined />, key: '2'},
-        { path: "provider", label: 'Provider', icon: <VideoCameraOutlined />, key: '3'},
+        { path: "", label: "Dashboard", icon: <UserOutlined />, key: "1"},
+        { path: "provider", label: "Provider", icon: <VideoCameraOutlined />, key: "2"},
+        { path: "test", label: "Test", icon: <VideoCameraOutlined />, key: "3"},
     ]
 
     const handleNavigate = (e) => {
