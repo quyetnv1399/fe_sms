@@ -1,7 +1,7 @@
 import "./App.css";
 import { App } from "antd";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import ProviderComponent from "./components/Providers/ProviderComponent";
+import ProviderComponent from "./components/providers/ProviderComponent";
 import LayoutComponent from "./views/Layouts/LayoutComponent";
 import NotFound from "./components/not-found";
 
