@@ -2,7 +2,7 @@ import "./App.css";
 import { App } from "antd";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ProviderComponent from "./components/providers/ProviderComponent";
-import LayoutComponent from "./views/Layouts/LayoutComponent";
+import LayoutComponent from "./views/layouts/LayoutComponent";
 import NotFound from "./components/not-found";
 
 const rootRoutes = [
